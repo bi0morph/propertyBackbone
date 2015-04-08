@@ -29,26 +29,59 @@
     <script type="text/template" id="search-form-template">
       <h3 class="text-center">
         PropertyCross
-        <button class="btn pull-right">Faves</button>
+        <button id="faves" class="btn pull-right">Faves</button>
       </h3>
       <div class="info-text">
         Use the form below to search for houses to buy. You can search by place-name, postcode, or click 'My location', to search in your current location!
       </div>
       <div class="form-container form-inline">
-        <input type="text" class="form-control" value="" name="query" autofocus>
-        <button class="btn">Go</button>
-        <button class="btn">My location</button>
+        <input type="text" id="query" class="form-control" value="<%= searchQuery %>" name="query" autofocus>
+        <button class="btn" id="go">Go</button>
+        <button class="btn" id="my-location">My location</button>
       </div>
-      <div id="recent-searches">
+      <div id="recent-searches" <%= recentSearches.length ? '' : 'class="hidden"' %>>
         <h4>Recent searches:</h4>
-        <ul class="list-wrap"></ul>
+        <ul class="list-wrap">
+          <% _.each(recentSearches,function(search) { %>
+            <li><%= search.query %> (<%= search.qntResults %>)</li>
+          <% });%>
+        </ul>
       </div>
-      <div id="locations">
+      <div id="locations" <%= locations.length ? '' : 'class="hidden"' %>>
         <h4>Please select a location below:</h4>
-        <ul class="list-wrap"></ul>
+        <ul class="list-wrap">
+           <% _.each(locations,function(location) { %>
+            <li>
+              <a href="#/query/<%= location.place_name %>">
+                <%= location.long_title %> (<%= location.place_name %>)
+              </a>
+            </li>
+          <% });%>
+        </ul>
       </div>
+      <p class="error <%= errorMessage.length ? '' : 'hidden' %>" >
+        <%= errorMessage %>
+      </p>
     </script>
-    <script type="text/template" id="properties-list-template"></script>
+    <script type="text/template" id="properties-list-template">
+      <h3 class="text-center">
+        <%= properties.length %> of <%= total_results %> matches
+      </h3>
+      <ul class="list-wrap">
+        <% _.each(properties,function(property) { %>
+          <li>
+            <a href="">
+              <img src="<%= property.thumb_url %>" width="<%= property.thumb_width %>" height="<%= property.thumb_height %>" alt="<%= property.title %>">
+              <%= property.price_formatted %><br>
+              <%= property.title %>
+            </a>
+          </li>
+        <% });%>
+      </ul>
+      <section class="<%= properties.length < total_results ? '' : 'hidden' %>">
+        <button id="load-more" class="btn pull-right">Load more</button>
+      </section>
+    </script>
     <script type="text/template" id="property-detail-template"></script>
 
     <script type="text/javascript" src="/bower_components/underscore/underscore.js"></script>
@@ -56,7 +89,15 @@
     <script type="text/javascript" src="/bower_components/backbone/backbone.js"></script>
     
     <script type="text/javascript" src="/javascripts/views/app.js"></script>
+    <script type="text/javascript" src="/javascripts/models/searchForm.js"></script>
+    <script type="text/javascript" src="/javascripts/views/searchForm.js"></script>
+
+    <script type="text/javascript" src="/javascripts/models/propertiesList.js"></script>
+    <script type="text/javascript" src="/javascripts/views/propertiesList.js"></script>
+
     <script type="text/javascript" src="/javascripts/nestoria-api.js"></script>
+    <script type="text/javascript" src="/javascripts/routers/router.js"></script>
+    
     <script type="text/javascript" src="/javascripts/app.js"></script>
   </body>
 </html>

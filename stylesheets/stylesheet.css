@@ -327,3 +327,12 @@ ul.list-wrap {
   padding: 10px 50px;
   margin-bottom: 20px;
 }
+
+.hidden {
+  display: none;
+}
+
+.error {
+  color: #F50707;
+  text-shadow: 0 0 5px rgba(255, 104, 104, 0.5);  
+}

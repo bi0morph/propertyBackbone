@@ -1,14 +1,45 @@
-var app = app || {};
+var app = app || {
+	views: {},
+	models: {},
+	currentView: null,
+	templates: {
+		searchForm: _.template( $('#search-form-template').html() ),
+		propertiesList: _.template( $('#properties-list-template').html() ),
+		propertyDetail: _.template( $('#property-detail-template').html() )
+	}
+};
 
-app.AppView = Backbone.View.extend({
+app.views.AppView = Backbone.View.extend({
 	
 	el: '#search-app',
-	
-	searchFormTemplate: _.template( $('#search-form-template').html() ),
-	propertiesListTemplate: _.template( $('#properties-list-template').html() ),
-	propertyDetailTemplate: _.template( $('#property-detail-template').html() ),
-	
+
 	initialize: function() {
-		this.$el.append( this.searchFormTemplate() );
+
+		this.on('currentView', this.updateCurrentView);
+	},
+	createCurrentView: function(viewName) {
+		switch (viewName) {
+			case 'SearchForm': 
+				app.currentView = new app.views.SearchForm({
+					el: this.el,
+					model: app.searchFormModel
+				});
+			break;
+			case 'PropertiesList': 
+				app.currentView = new app.views.PropertiesList({
+					el: this.el,
+					model: app.propertiesListModel
+				});
+			break;
+		}
+	},
+	updateCurrentView: function(viewName) {
+		if (app.currentView) {
+			app.currentView.close();
+		};
+		console.log(viewName);
+		this.createCurrentView(viewName);
+		
+		app.currentView.render();
 	}
 });
