@@ -3,7 +3,6 @@ var Workspace = Backbone.Router.extend({
 	routes: {
 		'location/:latitude/:longitude': 'searchPropertyByLocation',
 		'query/:query': 'searchProperty',
-		'query/:query/:page': 'searchProperty',
 		'*default': 'showSearchForm',
 	},
 
@@ -11,17 +10,20 @@ var Workspace = Backbone.Router.extend({
 		app.searchFormModel.setRecentSearches();
 		app.appView.trigger('currentView', 'SearchForm');
 	},
-	searchProperty: function(query, page) {
-		var queryValue = decodeURI(query),
-			page_number = page || 1;
-		app.searchFormModel.updateQuery(queryValue);
+	searchProperty: function(query) {
+		var queryValue = decodeURI(query);
 		
-		app.NestoriaApi.findProperty(queryValue, page_number, this.searchSuccess, this.searchError);
-	},
-	searchPropertyByLocation: function(latitude, longitude, page) {
-		var page_number = page || 1;
+		app.searchService = new app.SearchService({locationName: queryValue});
+		app.searchFormModel.updateQuery(queryValue);
 
-		app.NestoriaApi.findPropertyByLocation(decodeURI(latitude), decodeURI(longitude), page_number, this.searchSuccess, this.searchError);	
+		app.searchService.nextPage(this.searchSuccess, this.searchError);
+	},
+	searchPropertyByLocation: function(latitude, longitude) {
+		var searchService = new app.SearchService({
+			latitude: decodeURI(latitude),
+			longitude: decodeURI(longitude)
+		});
+		app.searchService.nextPage(this.searchSuccess, this.searchError);
 	},
 	searchSuccess: function(result) {
 		console.log(result.response);
@@ -48,7 +50,7 @@ var Workspace = Backbone.Router.extend({
 		}
 
 		if (!app.currentView) {
-			app.appView.trigger('currentView:SearchForm');
+			app.appView.trigger('currentVie', 'SearchForm');
 		};
 	},
 	searchError: function(jqXHR, textError, errorType) {
