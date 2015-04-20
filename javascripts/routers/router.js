@@ -28,6 +28,7 @@ var Workspace = Backbone.Router.extend({
 	searchSuccess: function(result) {
 		console.log(result.response);
 		console.log(result.request);
+
 		var responseCode = result.response.application_response_code;
 		
 		if (responseCode === "100" || responseCode === "101"
@@ -39,6 +40,9 @@ var Workspace = Backbone.Router.extend({
 					properties: result.response.listings,
 					total_results: result.response.total_results
 				});
+				
+				app.listRecentSearches.addSearch(result.request.location, result.response.total_results);
+
 				app.appView.trigger('currentView', 'PropertiesList');
 			}else{
 				app.searchFormModel.setError('There were no properties found for the given location.');

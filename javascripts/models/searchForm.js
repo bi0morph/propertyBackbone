@@ -8,6 +8,7 @@ app.models.SearchForm = Backbone.Model.extend({
 		errorMessage: '',
 	},
 	setError: function(message) {
+		console.log('setError');
 		this.set({
 			errorMessage: message,
 			locations: [],
@@ -15,6 +16,7 @@ app.models.SearchForm = Backbone.Model.extend({
 		});
 	},
 	setLocations: function(locations) {
+		console.log('setLocations');
 		this.set({
 			errorMessage: '',
 			locations: locations,
@@ -31,7 +33,7 @@ app.models.SearchForm = Backbone.Model.extend({
 		this.set({
 			errorMessage: '',
 			locations: [],
-			recentSearches: []
+			recentSearches: app.listRecentSearches.toJSON()
 		});
 	}
 });

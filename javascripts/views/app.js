@@ -1,6 +1,7 @@
 var app = app || {
 	views: {},
 	models: {},
+	collections: {},
 	currentView: null,
 	templates: {
 		searchForm: _.template( $('#search-form-template').html() ),
@@ -20,8 +21,9 @@ app.views.AppView = Backbone.View.extend({
 	createCurrentView: function(viewName) {
 		
 		console.log(viewName);
+		//app.searchFormModel = new app.models.SearchForm();
 		switch (viewName) {
-			case 'SearchForm': 
+			case 'SearchForm':
 				app.currentView = new app.views.SearchForm({
 					el: this.el,
 					model: app.searchFormModel

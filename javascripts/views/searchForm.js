@@ -10,6 +10,7 @@ app.views.SearchForm = Backbone.View.extend({
 		'click #my-location': 'getCurrentPosition',
 	},
 	render: function() {
+		console.log(this.model.attributes);
 		this.$el.html( this.template( this.model.attributes ) );
 		this.$input = this.$('#query');
 		this.$input.focus();
