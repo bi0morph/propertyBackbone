@@ -85,7 +85,7 @@
     <script type="text/template" id="property-detail-template">
       <h3 class="text-center">
         Properti Details
-        <button id="add-to-fave" class="btn pull-right">+</button>
+        <button id="add-to-fave" class="btn pull-right"><%= isFavorite ? '-' : '+'%></button>
       </h3>
       <div class="detail">
         <h4><%= price %></h4>
@@ -111,6 +111,7 @@
     <script type="text/javascript" src="/javascripts/views/propertiesList.js"></script>
 
     <script type="text/javascript" src="/javascripts/models/propertyDetail.js"></script>
+    <script type="text/javascript" src="/javascripts/collections/listFavorites.js"></script>
     <script type="text/javascript" src="/javascripts/views/propertyDetail.js"></script>
 
     <script type="text/javascript" src="/javascripts/nestoria-api.js"></script>

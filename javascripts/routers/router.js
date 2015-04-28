@@ -20,6 +20,7 @@ var Workspace = Backbone.Router.extend({
 			bedrooms: property.bedroom_number,
 			bathrooms: property.bathroom_number,
 			summary: property.summary,
+			guid: property.guid
 		});
 		app.appView.trigger('currentView', 'PropertyDetail');
 	},

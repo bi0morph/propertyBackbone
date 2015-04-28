@@ -19,8 +19,6 @@ app.views.AppView = Backbone.View.extend({
 		this.on('currentView', this.updateCurrentView);
 	},
 	createCurrentView: function(viewName) {
-		
-		console.log(viewName);
 		switch (viewName) {
 			case 'SearchForm':
 				app.currentView = new app.views.SearchForm({

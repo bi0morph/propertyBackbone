@@ -10,6 +10,12 @@ app.models.PropertyDetail = Backbone.Model.extend({
 		bedrooms: 0,
 		bathrooms: 0,
 		summary: '',
-		favorite: false
+		isFavorite: false,
+		guid: 0
 	},
+	toggleFave: function() {
+		var isFavorite = this.get('isFavorite');
+		this.set('isFavorite', !isFavorite);
+		return !isFavorite;
+	}
 });
