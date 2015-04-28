@@ -322,7 +322,7 @@ a {
 .form-container {
   margin: 20px 0;
 }
-ul.list-wrap {
+ul.list {
   border: 1px solid;
   padding: 10px 50px;
   margin-bottom: 20px;
@@ -351,6 +351,14 @@ ul.list-wrap {
   -o-transition: all .2s ease-in-out;
   transition: all .2s ease-in-out;
 }
-.detail img {
+.detail .img-thumbnail, .list .img-thumbnail {
   margin: 10px;
+}
+
+.list a {
+  display: block;
+  overflow: hidden; 
+  line-height: 40px;
+  min-height: 90px;
+  min-width: 450px;
 }

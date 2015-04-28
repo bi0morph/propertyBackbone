@@ -41,7 +41,7 @@
       </div>
       <div id="recent-searches" <%= recentSearches.length ? '' : 'class="hidden"' %>>
         <h4>Recent searches:</h4>
-        <ul class="list-wrap">
+        <ul class="list">
           <% _.each(recentSearches,function(search) { %>
             <li><a href="#/query/<%= search.query %>"><%= search.query %> (<%= search.qntResults %>)</a></li>
           <% });%>
@@ -49,7 +49,7 @@
       </div>
       <div id="locations" <%= locations.length ? '' : 'class="hidden"' %>>
         <h4>Please select a location below:</h4>
-        <ul class="list-wrap">
+        <ul class="list">
            <% _.each(locations,function(location) { %>
             <li>
               <a href="#/query/<%= location.place_name %>">
@@ -67,11 +67,11 @@
       <h3 class="text-center">
         <%= properties.length %> of <%= total_results %> matches
       </h3>
-      <ul class="list-wrap">
+      <ul class="list">
         <% _.each(properties,function(property, index) { %>
           <li>
             <a href="#/properties/<%= index %>">
-              <img src="<%= property.thumb_url %>" width="<%= property.thumb_width %>" height="<%= property.thumb_height %>" alt="<%= property.title %>">
+              <img src="<%= property.thumb_url %>" align="left" class="img-thumbnail" width="<%= property.thumb_width %>" height="<%= property.thumb_height %>" alt="<%= property.title %>">
               <%= property.price_formatted %><br>
               <%= property.title %>
             </a>
@@ -102,7 +102,7 @@
     <script type="text/javascript" src="/bower_components/backbone/backbone.js"></script>
     
     <script type="text/javascript" src="/javascripts/views/app.js"></script>
-    
+
     <script type="text/javascript" src="/javascripts/models/recentSearch.js"></script>
     <script type="text/javascript" src="/javascripts/collections/listRecentSearches.js"></script>
     <script type="text/javascript" src="/javascripts/models/searchForm.js"></script>
