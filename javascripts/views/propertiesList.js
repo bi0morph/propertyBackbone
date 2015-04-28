@@ -20,6 +20,9 @@ app.views.PropertiesList = Backbone.View.extend({
 			};
 		return toggleLoading; 
 	} )(),
+	close: function() {
+	    this.stopListening();
+	},
 	loadMoreProperties: function() {
 		this.toggleLoading();
 		var success = _.bind(this.loadSuccess, this),
@@ -28,8 +31,19 @@ app.views.PropertiesList = Backbone.View.extend({
 
 	},
 	loadSuccess: function(result) {
-		console.log(result.response);
-		console.log(result.request);
+		var responseCode = result.response.application_response_code;
+
+		if (result.response.listings.length 
+			&& (responseCode === "100" || responseCode === "101"
+			|| responseCode === "110")) {
+
+			/*app.propertiesListModel.set({
+					page: result.response.page,
+					properties: result.response.listings,
+					total_results: result.response.total_results
+				});*/
+			console.log( result.response.listings );
+		}
 		this.toggleLoading();
 	},
 	loadError: function() {

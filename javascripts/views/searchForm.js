@@ -2,6 +2,7 @@ app.views.SearchForm = Backbone.View.extend({
 	template: app.templates.searchForm,
 	initialize: function() {
 		this.listenTo(this.model, 'change:errorMessage', this.render);
+		this.listenTo(this.model, 'change:locations', this.render);
 	},
 	events: {
 		'click #faves': 'showFaves',

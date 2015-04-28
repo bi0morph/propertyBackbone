@@ -2,10 +2,27 @@ var Workspace = Backbone.Router.extend({
 	
 	routes: {
 		'location/:latitude/:longitude': 'searchPropertyByLocation',
+		'properties/:index': 'showPropertyDetail',
 		'query/:query': 'searchProperty',
 		'*default': 'showSearchForm',
 	},
-
+	showPropertyDetail: function(index) {
+		var property = app.propertiesListModel.getProperty(index);
+		console.log(property);
+		app.propertyDetail = new app.models.PropertyDetail({
+			price: property.price_formatted,
+			title: property.title,
+			image: {
+				src: property.img_url,
+				width: property.img_width,
+				height: property.img_height
+			},
+			bedrooms: property.bedroom_number,
+			bathrooms: property.bathroom_number,
+			summary: property.summary,
+		});
+		app.appView.trigger('currentView', 'PropertyDetail');
+	},
 	showSearchForm: function() {
 		app.searchFormModel.setRecentSearches();
 		app.appView.trigger('currentView', 'SearchForm');
@@ -26,8 +43,10 @@ var Workspace = Backbone.Router.extend({
 		app.searchService.nextPage(this.searchSuccess, this.searchError);
 	},
 	searchSuccess: function(result) {
-		console.log(result.response);
+		console.log('searchSuccess');
+		
 		console.log(result.request);
+		console.log(result.response);
 
 		var responseCode = result.response.application_response_code;
 		
@@ -54,7 +73,7 @@ var Workspace = Backbone.Router.extend({
 		}
 
 		if (!app.currentView) {
-			app.appView.trigger('currentVie', 'SearchForm');
+			app.appView.trigger('currentView', 'SearchForm');
 		};
 	},
 	searchError: function(jqXHR, textError, errorType) {

@@ -16,7 +16,6 @@ app.models.SearchForm = Backbone.Model.extend({
 		});
 	},
 	setLocations: function(locations) {
-		console.log('setLocations');
 		this.set({
 			errorMessage: '',
 			locations: locations,

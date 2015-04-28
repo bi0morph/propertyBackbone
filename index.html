@@ -68,9 +68,9 @@
         <%= properties.length %> of <%= total_results %> matches
       </h3>
       <ul class="list-wrap">
-        <% _.each(properties,function(property) { %>
+        <% _.each(properties,function(property, index) { %>
           <li>
-            <a href="">
+            <a href="#/properties/<%= index %>">
               <img src="<%= property.thumb_url %>" width="<%= property.thumb_width %>" height="<%= property.thumb_height %>" alt="<%= property.title %>">
               <%= property.price_formatted %><br>
               <%= property.title %>
@@ -82,7 +82,20 @@
         <button id="load-more" class="btn pull-right">Load more</button>
       </section>
     </script>
-    <script type="text/template" id="property-detail-template"></script>
+    <script type="text/template" id="property-detail-template">
+      <h3 class="text-center">
+        Properti Details
+        <button id="add-to-fave" class="btn pull-right">+</button>
+      </h3>
+      <div class="detail">
+        <h4><%= price %></h4>
+        <h5><%= title %></h5>
+        <img src="<%= image.src %>" class="img-thumbnail" width="<%= image.width %>" height="<%= image.height %>"  align="left" alt="<%= title %>">
+        <p><%= bedrooms %> bedrooms, <%= bathrooms %> bathrooms</p>
+        <p><%= summary %></p>
+      </div>
+      
+    </script>
 
     <script type="text/javascript" src="/bower_components/underscore/underscore.js"></script>
     <script type="text/javascript" src="/bower_components/jquery/dist/jquery.js"></script>
@@ -96,6 +109,9 @@
 
     <script type="text/javascript" src="/javascripts/models/propertiesList.js"></script>
     <script type="text/javascript" src="/javascripts/views/propertiesList.js"></script>
+
+    <script type="text/javascript" src="/javascripts/models/propertyDetail.js"></script>
+    <script type="text/javascript" src="/javascripts/views/propertyDetail.js"></script>
 
     <script type="text/javascript" src="/javascripts/nestoria-api.js"></script>
     <script type="text/javascript" src="/javascripts/searchService.js"></script>

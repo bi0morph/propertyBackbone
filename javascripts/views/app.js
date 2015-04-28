@@ -21,7 +21,6 @@ app.views.AppView = Backbone.View.extend({
 	createCurrentView: function(viewName) {
 		
 		console.log(viewName);
-		//app.searchFormModel = new app.models.SearchForm();
 		switch (viewName) {
 			case 'SearchForm':
 				app.currentView = new app.views.SearchForm({
@@ -33,6 +32,12 @@ app.views.AppView = Backbone.View.extend({
 				app.currentView = new app.views.PropertiesList({
 					el: this.el,
 					model: app.propertiesListModel
+				});
+			break;
+			case 'PropertyDetail': 
+				app.currentView = new app.views.PropertyDetail({
+					el: this.el,
+					model: app.propertyDetail
 				});
 			break;
 		}
