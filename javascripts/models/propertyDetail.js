@@ -1,4 +1,4 @@
-app.models.PropertyDetail = Backbone.Model.extend({
+app.Models.PropertyDetail = Backbone.Model.extend({
 	defaults: {
 		price: '',
 		title: '',

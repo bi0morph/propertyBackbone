@@ -1,15 +1,15 @@
 var Workspace = Backbone.Router.extend({
 	
 	routes: {
-		'location/:latitude/:longitude': 'searchPropertyByLocation',
-		'properties/:index': 'showPropertyDetail',
-		'query/:query': 'searchProperty',
+		'location/:latitude/:longitude(/)': 'searchPropertyByLocation',
+		'properties/:index(/)': 'showPropertyDetail',
+		'query/:query(/)': 'searchProperty',
 		'*default': 'showSearchForm',
 	},
 	showPropertyDetail: function(index) {
 		var property = app.propertiesListModel.getProperty(index);
 		console.log(property);
-		app.propertyDetail = new app.models.PropertyDetail({
+		app.propertyDetail = new app.Models.PropertyDetail({
 			price: property.price_formatted,
 			title: property.title,
 			image: {
@@ -22,14 +22,14 @@ var Workspace = Backbone.Router.extend({
 			summary: property.summary,
 			guid: property.guid
 		});
-		app.appView.trigger('currentView', 'PropertyDetail');
+		app.trigger('currentView', 'PropertyDetail');
 	},
 	showSearchForm: function() {
 		app.searchFormModel.setRecentSearches();
-		app.appView.trigger('currentView', 'SearchForm');
+		app.trigger('currentView', 'SearchForm');
 	},
 	searchProperty: function(query) {
-		var queryValue = decodeURI(query);
+		var queryValue = decodeURIComponent(query);
 		
 		app.searchService = new app.SearchService({locationName: queryValue});
 		app.searchFormModel.updateQuery(queryValue);
@@ -38,8 +38,8 @@ var Workspace = Backbone.Router.extend({
 	},
 	searchPropertyByLocation: function(latitude, longitude) {
 		var searchService = new app.SearchService({
-			latitude: decodeURI(latitude),
-			longitude: decodeURI(longitude)
+			latitude: decodeURIComponent(latitude),
+			longitude: decodeURIComponent(longitude)
 		});
 		app.searchService.nextPage(this.searchSuccess, this.searchError);
 	},
@@ -63,7 +63,7 @@ var Workspace = Backbone.Router.extend({
 				
 				app.listRecentSearches.addSearch(result.request.location, result.response.total_results);
 
-				app.appView.trigger('currentView', 'PropertiesList');
+				app.trigger('currentView', 'PropertiesList');
 			}else{
 				app.searchFormModel.setError('There were no properties found for the given location.');
 			};
@@ -74,7 +74,7 @@ var Workspace = Backbone.Router.extend({
 		}
 
 		if (!app.currentView) {
-			app.appView.trigger('currentView', 'SearchForm');
+			app.trigger('currentView', 'SearchForm');
 		};
 	},
 	searchError: function(jqXHR, textError, errorType) {

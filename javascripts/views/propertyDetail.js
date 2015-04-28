@@ -1,4 +1,4 @@
-app.views.PropertyDetail = Backbone.View.extend({
+app.Views.PropertyDetail = Backbone.View.extend({
 	template: app.templates.propertyDetail,
 	initialize: function() {
 		this.listenTo(this.model, 'change:isFavorite', this.render);

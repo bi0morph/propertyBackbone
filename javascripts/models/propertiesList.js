@@ -1,4 +1,4 @@
-app.models.PropertiesList = Backbone.Model.extend({
+app.Models.PropertiesList = Backbone.Model.extend({
 	defaults: {
 		page: 1,
 		properties: [],

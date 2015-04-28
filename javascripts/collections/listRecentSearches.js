@@ -1,7 +1,5 @@
-var app = app || {};
-
-app.collections.ListRecentSearches = Backbone.Collection.extend({
-	model: app.models.RecentSearch,
+app.Collections.ListRecentSearches = Backbone.Collection.extend({
+	model: app.Models.RecentSearch,
 	initialize: function () {
 		this.fetch();
 	},
@@ -9,7 +7,7 @@ app.collections.ListRecentSearches = Backbone.Collection.extend({
 		return (new Date()).getTime();
 	},
 	addSearch: function(query, qntResults) {
-		var recentSearch = new app.models.RecentSearch({
+		var recentSearch = new app.Models.RecentSearch({
 			query: query,
 			qntResults: qntResults,
 			timestamp: this.getTimestamp()

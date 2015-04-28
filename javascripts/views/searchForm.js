@@ -1,4 +1,4 @@
-app.views.SearchForm = Backbone.View.extend({
+app.Views.SearchForm = Backbone.View.extend({
 	template: app.templates.searchForm,
 	initialize: function() {
 		this.listenTo(this.model, 'change:errorMessage', this.render);
@@ -11,7 +11,6 @@ app.views.SearchForm = Backbone.View.extend({
 		'click #my-location': 'getCurrentPosition',
 	},
 	render: function() {
-		console.log(this.model.attributes);
 		this.$el.html( this.template( this.model.attributes ) );
 		this.$input = this.$('#query');
 		this.$input.focus();
@@ -28,7 +27,7 @@ app.views.SearchForm = Backbone.View.extend({
 		
 		if (query) {
 			this.model.set('searchQuery', query);
-			app.PropertySearchRouter.navigate('#/query/' + encodeURI(query), {trigger: true});
+			app.router.navigate('#/query/' + encodeURI(query), {trigger: true});
 		}
 	},
 	changeQueryOnEnter: function(e) {
@@ -57,10 +56,9 @@ app.views.SearchForm = Backbone.View.extend({
 			latitude: coords.latitude,
 			longitude: coords.longitude,
 		});
-		var url = '#/location/';
-		url += encodeURI(coords.latitude) +'/';
-		url += encodeURI(coords.longitude);
-		app.PropertySearchRouter.navigate(url, {trigger: true});
+		var url = '#/location/' + coords.latitude + '/';
+		url += coords.longitude;
+		app.router.navigate(url, {trigger: true});
 	},
 	changeLocationTest: function() {
 		this.changeLocation({

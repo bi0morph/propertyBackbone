@@ -1,51 +1,64 @@
-var app = app || {
-	views: {},
-	models: {},
-	collections: {},
+var app = new (Backbone.View.extend({
+	
+	Views: {},
+	Models: {},
+	Collections: {},
+	
+	router: null,
 	currentView: null,
+
+	listRecentSearches: null,
+	listFavotites: null,
+	searchFormModel: null,
+	propertiesListModel: null,
+
 	templates: {
 		searchForm: _.template( $('#search-form-template').html() ),
 		propertiesList: _.template( $('#properties-list-template').html() ),
 		propertyDetail: _.template( $('#property-detail-template').html() )
-	}
-};
-
-app.views.AppView = Backbone.View.extend({
+	},
 	
-	el: '#search-app',
-
 	initialize: function() {
-
 		this.on('currentView', this.updateCurrentView);
+	},
+	start: function() {
+
+		this.listRecentSearches = new this.Collections.ListRecentSearches();
+		this.listFavotites = new this.Collections.ListFavotites;
+		this.searchFormModel = new this.Models.SearchForm();
+		this.propertiesListModel = new this.Models.PropertiesList();
+
+		this.router = new Workspace();
+		Backbone.history.start();
 	},
 	createCurrentView: function(viewName) {
 		switch (viewName) {
 			case 'SearchForm':
-				app.currentView = new app.views.SearchForm({
+				this.currentView = new this.Views.SearchForm({
 					el: this.el,
-					model: app.searchFormModel
+					model: this.searchFormModel
 				});
 			break;
 			case 'PropertiesList': 
-				app.currentView = new app.views.PropertiesList({
+				this.currentView = new this.Views.PropertiesList({
 					el: this.el,
-					model: app.propertiesListModel
+					model: this.propertiesListModel
 				});
 			break;
 			case 'PropertyDetail': 
-				app.currentView = new app.views.PropertyDetail({
+				this.currentView = new this.Views.PropertyDetail({
 					el: this.el,
-					model: app.propertyDetail
+					model: this.propertyDetail
 				});
 			break;
 		}
 	},
 	updateCurrentView: function(viewName) {
-		if (app.currentView) {
-			app.currentView.close();
+		if (this.currentView) {
+			this.currentView.close();
 		};
 		this.createCurrentView(viewName);
 		
-		app.currentView.render();
+		this.currentView.render();
 	}
-});
+}))({el: '#search-app'});

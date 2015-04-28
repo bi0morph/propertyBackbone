@@ -1,4 +1,4 @@
-app.views.DeafultView = Backbone.View.extend({
+app.Views.DeafultView = Backbone.View.extend({
 	initialize: function() {
 		console.log('initialize SearchForm');
 		this.render();

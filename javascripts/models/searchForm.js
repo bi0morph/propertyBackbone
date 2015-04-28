@@ -1,4 +1,4 @@
-app.models.SearchForm = Backbone.Model.extend({
+app.Models.SearchForm = Backbone.Model.extend({
 	defaults: {
 		searchQuery: '',
 		latitude: 0,

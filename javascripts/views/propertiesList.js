@@ -1,4 +1,4 @@
-app.views.PropertiesList = Backbone.View.extend({
+app.Views.PropertiesList = Backbone.View.extend({
 	template: app.templates.propertiesList,
 	events: {
 		'click #load-more': 'loadMoreProperties'
