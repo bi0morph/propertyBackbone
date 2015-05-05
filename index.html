@@ -68,15 +68,6 @@
         <%= properties.length %> of <%= total_results %> matches
       </h3>
       <ul class="list">
-        <% _.each(properties,function(property, index) { %>
-          <li>
-            <a href="#/properties/<%= index %>">
-              <img src="<%= property.thumb_url %>" align="left" class="img-thumbnail" width="<%= property.thumb_width %>" height="<%= property.thumb_height %>" alt="<%= property.title %>">
-              <%= property.price_formatted %><br>
-              <%= property.title %>
-            </a>
-          </li>
-        <% });%>
       </ul>
       <section class="<%= properties.length < total_results ? '' : 'hidden' %>">
         <button id="load-more" class="btn pull-right">Load more</button>
@@ -96,31 +87,41 @@
       </div>
       
     </script>
+    <script type="text/template" id="property-item-template">
+        <a href="#/properties/<%= index %>">
+          <img src="<%= image.src %>" align="left" class="img-thumbnail" width="<%= image.width %>" height="<%= image.height %>" alt="<%= title %>">
+          <%= price %><br>
+          <%= title %>
+        </a>
+    </script>
 
-    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone//bower_components/underscore/underscore.js"></script>
-    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone//bower_components/jquery/dist/jquery.js"></script>
-    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone//bower_components/backbone/backbone.js"></script>
+    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone/bower_components/underscore/underscore.js"></script>
+    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone/bower_components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone/bower_components/backbone/backbone.js"></script>
     
-    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone//javascripts/views/app.js"></script>
+    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone/javascripts/views/app.js"></script>
 
-    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone//javascripts/models/recentSearch.js"></script>
-    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone//javascripts/collections/listRecentSearches.js"></script>
-    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone//javascripts/models/searchForm.js"></script>
-    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone//javascripts/views/searchForm.js"></script>
+    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone/javascripts/models/recentSearch.js"></script>
+    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone/javascripts/collections/listRecentSearches.js"></script>
+    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone/javascripts/models/searchForm.js"></script>
+    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone/javascripts/views/searchForm.js"></script>
 
-    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone//javascripts/models/propertiesList.js"></script>
-    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone//javascripts/views/propertiesList.js"></script>
 
-    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone//javascripts/models/propertyDetail.js"></script>
-    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone//javascripts/collections/listFavorites.js"></script>
-    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone//javascripts/views/propertyDetail.js"></script>
+    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone/javascripts/models/propertiesList.js"></script>
+    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone/javascripts/views/propertyItem.js"></script>
+    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone/javascripts/views/propertiesList.js"></script>
 
-    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone//javascripts/nestoria-api.js"></script>
-    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone//javascripts/searchService.js"></script>
+
+    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone/javascripts/models/propertyDetail.js"></script>
+    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone/javascripts/collections/listFavorites.js"></script>
+    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone/javascripts/views/propertyDetail.js"></script>
+
+    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone/javascripts/nestoria-api.js"></script>
+    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone/javascripts/searchService.js"></script>
     
-    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone//javascripts/routers/router.js"></script>
+    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone/javascripts/routers/router.js"></script>
     
     
-    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone//javascripts/app.js"></script>
+    <script type="text/javascript" src="http://bi0morph.github.io/propertyBackbone/javascripts/app.js"></script>
   </body>
 </html>

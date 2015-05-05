@@ -15,6 +15,7 @@ var app = new (Backbone.View.extend({
 	templates: {
 		searchForm: _.template( $('#search-form-template').html() ),
 		propertiesList: _.template( $('#properties-list-template').html() ),
+		propertyItem: _.template( $('#property-item-template').html() ),
 		propertyDetail: _.template( $('#property-detail-template').html() )
 	},
 	

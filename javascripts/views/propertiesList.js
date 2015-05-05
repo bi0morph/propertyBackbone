@@ -4,9 +4,43 @@ app.Views.PropertiesList = Backbone.View.extend({
 		'click #load-more': 'loadMoreProperties'
 	},
 	render: function() {
-		this.$el.html( this.template( this.model.attributes ) );
+		var variables = this.model.attributes;
+		this.$el.html( this.template( variables ) );
+		
+		this.renderProperties( variables.properties );
+		
 		this.$loadMore = this.$('#load-more');
 		return this;
+	},
+	renderProperties: function(properties) {
+		var htmlFragment = document.createDocumentFragment(),
+			that = this;
+
+		_.each( properties, function(property, index) {
+			var itemView = new app.Views.PropertyItem({
+				model: that.createItemModel(property),
+				index: index
+			});
+			itemView.render().$el.appendTo(htmlFragment);
+		});	
+
+		this.$el.find('.list').append(htmlFragment);
+	},
+	createItemModel: function(propertyObj){
+		return new app.Models.PropertyDetail({
+			price: propertyObj.price_formatted,
+			title: propertyObj.title,
+			image: {
+				src: propertyObj.thumb_url,
+				width: propertyObj.thumb_width,
+				height: propertyObj.thumb_height
+			},
+			bedrooms: propertyObj.bedroom_number,
+			bathrooms: propertyObj.bathroom_number,
+			summary: propertyObj.summary,
+			isFavorite: false,
+			guid: propertyObj.guid
+		});
 	},
 	toggleLoading: (function() {
 		var isLoading = false,
@@ -33,16 +67,26 @@ app.Views.PropertiesList = Backbone.View.extend({
 	loadSuccess: function(result) {
 		var responseCode = result.response.application_response_code;
 
-		if (result.response.listings.length 
+		if (result.response.listings
+			&& result.response.listings.length 
 			&& (responseCode === "100" || responseCode === "101"
 			|| responseCode === "110")) {
 
-			/*app.propertiesListModel.set({
-					page: result.response.page,
-					properties: result.response.listings,
-					total_results: result.response.total_results
-				});*/
-			console.log( result.response.listings );
+			var propertiesListObj = app.propertiesListModel.attributes;
+
+			propertiesListObj.page = result.response.page;
+				
+			_.each(result.response.listings, function(property){
+				propertiesListObj.properties.push(property);
+			});
+			
+			app.propertiesListModel.set(propertiesListObj);
+			
+			this.renderProperties(result.response.listings);
+
+			if(propertiesListObj.total_results === propertiesListObj.properties.length) {
+				this.$el.find('section').addClass('hidden');
+			}
 		}
 		this.toggleLoading();
 	},
